@@ -25,3 +25,7 @@ Le bridge effectue alors les actions suivantes :
 # Développement local
 
 - `pipenv run flask run`
+
+# Déploiement
+
+Le bridge est déployé sur l'instance [Dokku](https://github.com/dokku/dokku) d'Etalab.
