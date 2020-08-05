@@ -18,3 +18,6 @@ class ProductionConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     DATA_PASS_API_KEY = "test_api_key"
+    GRAVITEE_URL = "https://portail.test"
+    GRAVITEE_ADMIN = "admin"
+    GRAVITEE_PASSWORD = "password"
