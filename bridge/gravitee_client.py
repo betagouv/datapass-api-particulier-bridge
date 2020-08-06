@@ -46,6 +46,24 @@ def update_dictionary(name, values):
     )
 
 
+def create_application_metadata(application_id, key, name, value):
+    (base_url, user, password) = _get_credentials()
+
+    r = requests.post(
+        "{}/applications/{}/metadata".format(base_url, application_id),
+        json={
+            "key": key,
+            "value": value,
+            "name": name,
+            "format": "string",
+            "applicationId": application_id,
+        },
+        auth=(user, password),
+    )
+
+    return r.json()
+
+
 def _get_credentials():
     return (
         current_app.config["GRAVITEE_URL"],
