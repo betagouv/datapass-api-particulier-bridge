@@ -10,13 +10,13 @@ def test_subscribe_route_authentication_failure(client):
 
 def test_invalid_api_key(client):
     subscribe_request = client.post(
-        "/applications/subscribe", headers={"Authorization": "Bearer lol"}
+        "/applications/subscribe", headers={"X-Gravitee-API-Key": "lol"}
     )
     assert subscribe_request.status_code == 403
 
 
 def test_valid_api_key(client):
     subscribe_request = client.post(
-        "/applications/subscribe", headers={"Authorization": "Bearer test_api_key"}
+        "/applications/subscribe", headers={"X-Gravitee-API-Key": "test_api_key"}
     )
     assert subscribe_request.status_code == 200

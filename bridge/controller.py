@@ -5,11 +5,7 @@ bp = Blueprint("Application subscription", __name__, url_prefix="/applications")
 
 @bp.route("/subscribe", methods=("POST",))
 def subscribe():
-    auth_header = request.headers.get("Authorization")
-    if auth_header:
-        auth_token = auth_header.split(" ")[1]
-    else:
-        auth_token = None
+    auth_token = request.headers.get("X-Gravitee-API-Key")
 
     if not auth_token:
         return "Forbidden", 401

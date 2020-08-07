@@ -31,17 +31,27 @@ def subscribe_to_api(application_id, plan_id, api_id):
     return r.json()
 
 
-def update_dictionary(name, values):
+def update_dictionary(id, name, values):
     (base_url, user, password) = _get_credentials()
 
+    r = requests.get(
+        "{}/configuration/dictionaries/{}".format(base_url, id),
+        auth=(user, password),
+    )
+    properties = r.json()["properties"]
+
     requests.put(
-        "{}/configuration/dictionaries/{}".format(base_url, name),
-        json={"name": "API-Particulier Scopes", "type": "MANUAL", "properties": values},
+        "{}/configuration/dictionaries/{}".format(base_url, id),
+        json={
+            "name": name,
+            "type": "MANUAL",
+            "properties": {**values, **properties},
+        },
         auth=(user, password),
     )
 
     requests.post(
-        "{}/configuration/dictionaries/{}/_deploy".format(base_url, name),
+        "{}/configuration/dictionaries/{}/_deploy".format(base_url, id),
         auth=(user, password),
     )
 
