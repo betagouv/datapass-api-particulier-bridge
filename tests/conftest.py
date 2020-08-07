@@ -8,3 +8,10 @@ def client():
 
     with app.test_client() as client:
         yield client
+
+
+@pytest.fixture
+def app():
+    app = create_app("bridge.config.TestingConfig")
+    with app.app_context():
+        yield app

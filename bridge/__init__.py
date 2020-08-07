@@ -9,7 +9,7 @@ def create_app(config="bridge.config.ProductionConfig"):
 
     app.config.from_object(config)
 
-    from . import subscribe
+    from . import controller
 
-    app.register_blueprint(subscribe.bp)
+    app.register_blueprint(controller.bp)
     return app
