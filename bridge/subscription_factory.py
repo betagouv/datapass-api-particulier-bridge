@@ -1,4 +1,4 @@
-import os
+from flask import current_app
 from bridge.crypto import generate_api_key
 import bridge.gravitee_client as client
 
@@ -25,16 +25,21 @@ def subscribe(application_name, contact_email, data_pass_id, scopes):
         "API Particulier Scopes",
         {api_key_hash[0:64]: ",".join(scopes)},
     )
-    client.create_application_metadata(application["id"], "api-key", "API Key", api_key)
+    client.create_application_metadata(application["id"], "API Key", api_key)
+
+    return application
 
 
 def _get_dgfip_references():
-    return (os.environ.get("DGFIP_API_ID"), os.environ.get("DGFIP_PLAN_ID"))
+    return (current_app.config["DGFIP_API_ID"], current_app.config["DGFIP_PLAN_ID"])
 
 
 def _get_cnaf_references():
-    return (os.environ.get("CNAF_API_ID"), os.environ.get("CNAF_PLAN_ID"))
+    return (current_app.config["CNAF_API_ID"], current_app.config["CNAF_PLAN_ID"])
 
 
 def _get_introspect_references():
-    return (os.environ.get("INTROSPECT_API_ID"), os.environ.get("INTROSPECT_PLAN_ID"))
+    return (
+        current_app.config["INTROSPECT_API_ID"],
+        current_app.config["INTROSPECT_PLAN_ID"],
+    )

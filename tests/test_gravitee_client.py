@@ -66,17 +66,14 @@ def test_application_metadata_creation(mocker, app):
     mocker.patch("requests.post")
 
     application_id = "application_id"
-    key = "key"
     name = "name"
     value = "value"
 
-    client.create_application_metadata(application_id, key, name, value)
+    client.create_application_metadata(application_id, name, value)
     requests.post.assert_called_once()
 
     assert requests.post.call_args[1]["json"] == {
-        "key": key,
         "name": name,
         "value": value,
         "format": "string",
-        "applicationId": application_id,
     }

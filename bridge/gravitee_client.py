@@ -35,18 +35,13 @@ def update_dictionary(id, name, values):
     (base_url, user, password) = _get_credentials()
 
     r = requests.get(
-        "{}/configuration/dictionaries/{}".format(base_url, id),
-        auth=(user, password),
+        "{}/configuration/dictionaries/{}".format(base_url, id), auth=(user, password),
     )
     properties = r.json()["properties"]
 
     requests.put(
         "{}/configuration/dictionaries/{}".format(base_url, id),
-        json={
-            "name": name,
-            "type": "MANUAL",
-            "properties": {**values, **properties},
-        },
+        json={"name": name, "type": "MANUAL", "properties": {**values, **properties},},
         auth=(user, password),
     )
 
@@ -56,18 +51,12 @@ def update_dictionary(id, name, values):
     )
 
 
-def create_application_metadata(application_id, key, name, value):
+def create_application_metadata(application_id, name, value):
     (base_url, user, password) = _get_credentials()
 
     r = requests.post(
         "{}/applications/{}/metadata".format(base_url, application_id),
-        json={
-            "key": key,
-            "value": value,
-            "name": name,
-            "format": "string",
-            "applicationId": application_id,
-        },
+        json={"value": value, "name": name, "format": "string",},
         auth=(user, password),
     )
 

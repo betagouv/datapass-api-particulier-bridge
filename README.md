@@ -19,6 +19,7 @@ Le bridge effectue alors les actions suivantes :
 
 # Installation
 
+- `cp .env.dist .env`
 - `pipenv install`
 
 # Développement local
