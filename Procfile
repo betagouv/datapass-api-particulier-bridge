@@ -1,1 +1,1 @@
-web: pipenv run flask run
+web: pipenv run flask run -p $PORT
