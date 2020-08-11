@@ -1,1 +1,1 @@
-web: FLASK_APP="bridge:create_app('bridge.config.ProductionConfig')" pipenv run flask run
+web: pipenv run gunicorn "bridge:create_app('bridge.config.ProductionConfig')" --workers=4
