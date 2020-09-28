@@ -1,6 +1,11 @@
 from flask import current_app
 from bridge.crypto import generate_api_key
+from blinker import Namespace
 import bridge.gravitee_client as client
+from .registration_listener import on_user_registered
+
+subscription_signals = Namespace()
+user_registered = subscription_signals.signal("user-registered")
 
 
 def subscribe(application_name, contact_email, data_pass_id, scopes):
@@ -9,12 +14,17 @@ def subscribe(application_name, contact_email, data_pass_id, scopes):
     (cnaf_api_id, cnaf_plan_id) = _get_cnaf_references()
     (introspect_api_id, introspect_plan_id) = _get_introspect_references()
 
+    # Create the application
     application = client.create_application(
         application_name, api_key_hash, data_pass_id
     )
+
+    # Subscribe the application to all data providers APIs
     client.subscribe_to_api(application["id"], dgfip_plan_id, dgfip_api_id)
     client.subscribe_to_api(application["id"], cnaf_plan_id, cnaf_api_id)
     client.subscribe_to_api(application["id"], introspect_plan_id, introspect_api_id)
+
+    # Update Gravitee dictionaries to fill information upon future calls
     client.update_dictionary(
         "application-names",
         "Application Names",
@@ -25,11 +35,36 @@ def subscribe(application_name, contact_email, data_pass_id, scopes):
         "API Particulier Scopes",
         {api_key_hash[0:64]: ",".join(scopes)},
     )
+
+    # Fill the application metadata with the API Key TODO: improve this not very stealth way of providing the API Key
     client.create_application_metadata(application["id"], "API Key", api_key)
-    contact_user = client.register_user(contact_email)
-    client.transfer_ownership(contact_user["id"], application["id"])
+
+    # Register the technical contact to the API Manager if they don't have an account yet
+    contact_user_id = None
+    candidates = client.search_user_by_email(contact_email)
+    if len(candidates) > 0:
+        contact_user_id = candidates[0]["id"]
+    else:
+        contact_user = client.register_user(contact_email)
+        contact_user_id = contact_user["id"]
+
+    # Give the application ownership to the technical user
+    client.transfer_ownership(contact_user_id, application["id"])
+
+    # Notify listeners that a new registration have been made, send a mail and stuff for example
+    user_registered.send(
+        current_app._get_current_object(),
+        application_id=application["id"],
+        application_name=application_name,
+        contact_email=contact_email,
+        data_pass_id=data_pass_id,
+    )
 
     return application
+
+
+def init_app(app):
+    user_registered.connect(on_user_registered, app)
 
 
 def _get_dgfip_references():

@@ -11,9 +11,10 @@ def test_subscription(mocker, app):
         create_application_metadata=mocker.DEFAULT,
         register_user=mocker.DEFAULT,
         transfer_ownership=mocker.DEFAULT,
+        search_user_by_email=mocker.DEFAULT,
     )
     application_name = mocker.sentinel.application_name
-    contact_email = mocker.sentinel.contact_email
+    contact_email = "jean@moust.com"
     data_pass_id = mocker.sentinel.data_pass_id
     scopes = ["scope1", "scope2"]
     application_id = mocker.sentinel.application_id
@@ -33,5 +34,6 @@ def test_subscription(mocker, app):
 
     client.create_application_metadata.assert_called_once()
 
+    client.search_user_by_email.assert_called_once()
     client.register_user.assert_called_once()
     client.transfer_ownership.assert_called_once()

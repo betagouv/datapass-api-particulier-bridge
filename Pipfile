@@ -11,8 +11,8 @@ test = "pytest"
 flask = "*"
 requests = "*"
 gunicorn = "*"
-flask-mail = "*"
 blinker = "*"
+flask-mail = "*"
 
 [requires]
 python_version = "3.7"

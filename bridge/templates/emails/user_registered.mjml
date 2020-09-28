@@ -1,0 +1,63 @@
+<mjml>
+  <mj-body background-color="#F2F3F7">
+    
+<!-- Header -->
+  <mj-section>
+      <mj-column>
+        <mj-image src="https://ylo9.mjt.lu/tplimg/ylo9/b/xj1qx/vzi9n.png" alt="Logo API Particulier" width="350px" align="left" />
+      </mj-column>
+    </mj-section>
+    
+<!-- Main -->
+<mj-section background-color="white">
+<mj-column>
+        <mj-text  font-style="italic"
+                 align="center"
+              font-size="25px"
+              color="#626262">
+      Bienvenue !
+    </mj-text>
+<mj-text font-size="16px" font-family="Roboto" line-height="150%">
+        Bonjour,
+        <br></br>
+          Vous avez été désigné(e) comme responsable technique de la démarche «{{ application_name }}» dans le cadre de son raccordement à API Particulier.
+          <br></br>
+          Nous avons le plaisir de vous annoncer que votre jeton d'accès, votre «API Key» vient d'être généré pour votre démarche.
+  				<br></br>
+        	Connectez-vous à notre portail en utilisant directement votre compte api.gouv.fr relié à l'adresse {{contact_email}}. Si vous n'en avez pas encore, créez-le directement à <a href="https://auth.api.gouv.fr/users/sign-up">cette adresse</a>.
+        </mj-text>
+  			<mj-button font-size="16px" font-family="Roboto" background-color="#000091" color="white" href="https://admin.portail.api.gouv.fr/#!/applications/{{application_id}}/metadata">
+          Récupérer mon API Key
+         </mj-button>
+  				<mj-text font-size="16px" font-family="Roboto"  line-height="150%">
+          En complément de votre API Key, voici plusieurs liens utiles :
+            <ul>
+              <li><a href="https://api.gouv.fr/documentation/api-particulier">Documentation technique de raccordement à l'API</a></li>
+              <li><a href="https://admin.portail.api.gouv.fr/#!/applications/{{application_id}}/">Informations générales sur votre démarche</a></li>
+             	<li><a href="https://admin.portail.api.gouv.fr/#!/applications/{{application_id}}/members">Ajout d'administrateurs de votre démarche</a></li>
+              <li><a href="https://admin.portail.api.gouv.fr/#!/applications/{{application_id}}/analytics">Métriques de consommation de l'API par votre démarche</a></li>
+            </ul>
+        </mj-text>
+
+        <mj-text font-size="16px" font-family="Roboto" line-height="150%">
+          Bien à vous,
+            <br></br>
+            L'équipe API Particulier
+        </mj-text>  
+      </mj-column>
+    </mj-section>
+
+    <!-- Footer -->
+    <mj-section background-color="white">
+      <mj-column>
+        <mj-divider border-color="grey" border-width="1px"></mj-divider>
+        <mj-text font-size="14px" color="grey" font-family="Roboto">
+          API Particulier est un service de circulation de la donnée, créé par la DINUM.
+          <a href="https://www.numerique.gouv.fr/produits-services/guichet-dites-le-nous-une-fois/" text-decoration= "underline" target="_blank">En savoir plus</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+    </mj-section>
+  </mj-body>
+</mjml>
