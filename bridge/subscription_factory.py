@@ -26,6 +26,8 @@ def subscribe(application_name, contact_email, data_pass_id, scopes):
         {api_key_hash[0:64]: ",".join(scopes)},
     )
     client.create_application_metadata(application["id"], "API Key", api_key)
+    contact_user = client.register_user(contact_email)
+    client.transfer_ownership(contact_user["id"], application["id"])
 
     return application
 
