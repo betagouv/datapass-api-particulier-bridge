@@ -16,6 +16,11 @@ class Config(object):
     INTROSPECT_API_ID = os.environ.get("INTROSPECT_API_ID")
     INTROSPECT_PLAN_ID = os.environ.get("INTROSPECT_PLAN_ID")
     AUTHENTICATION_SOURCE = os.environ.get("AUTHENTICATION_SOURCE")
+    MAIL_SERVER = os.environ.get("MAIL_SERVER")
+    MAIL_PORT = os.environ.get("MAIL_PORT", 25)
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+    MAIL_DEFAULT_SENDER = os.environ.get("MAIL_DEFAULT_SENDER")
 
 
 class DevConfig(Config):
@@ -33,3 +38,4 @@ class TestingConfig(Config):
     GRAVITEE_ADMIN = "admin"
     GRAVITEE_PASSWORD = "password"
     AUTHENTICATION_SOURCE = "apigouvfr"
+    MAIL_DEFAULT_SENDER = "georges@moustaki.fr"

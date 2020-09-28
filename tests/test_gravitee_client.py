@@ -79,6 +79,17 @@ def test_application_metadata_creation(mocker, app):
     }
 
 
+def test_user_search(mocker, app):
+    mocker.patch("requests.get")
+
+    email = "georges@moustaki.fr"
+    client.search_user_by_email(email)
+
+    requests.get.assert_called_once()
+
+    assert requests.get.call_args[1]["params"] == {"q": email, "page": 1, "size": 1}
+
+
 def test_user_registration(mocker, app):
     mocker.patch("requests.post")
 

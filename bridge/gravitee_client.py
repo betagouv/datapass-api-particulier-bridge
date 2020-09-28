@@ -63,6 +63,18 @@ def create_application_metadata(application_id, name, value):
     return r.json()
 
 
+def search_user_by_email(email):
+    (base_url, user, password) = _get_credentials()
+
+    r = requests.get(
+        "{}/users".format(base_url),
+        params={"q": email, "page": 1, "size": 1},
+        auth=(user, password),
+    )
+
+    return r.json()["data"]
+
+
 def register_user(email):
     (base_url, user, password) = _get_credentials()
     source = current_app.config["AUTHENTICATION_SOURCE"]
