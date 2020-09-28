@@ -77,3 +77,30 @@ def test_application_metadata_creation(mocker, app):
         "value": value,
         "format": "string",
     }
+
+
+def test_user_registration(mocker, app):
+    mocker.patch("requests.post")
+
+    email = "georges@moustaki.fr"
+
+    client.register_user(email)
+    requests.post.assert_called_once()
+
+    assert requests.post.call_args[1]["json"] == {
+        "email": email,
+        "source": "apigouvfr",
+        "sourceId": email,
+    }
+
+
+def test_transfer_ownership(mocker, app):
+    mocker.patch("requests.post")
+
+    user_id = "georges_moustaki"
+    application_id = "application_id"
+
+    client.transfer_ownership(user_id, application_id)
+
+    requests.post.assert_called_once()
+    assert requests.post.call_args[1]["json"] == {"id": user_id, "role": "OWNER"}

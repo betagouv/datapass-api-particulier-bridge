@@ -63,6 +63,31 @@ def create_application_metadata(application_id, name, value):
     return r.json()
 
 
+def register_user(email):
+    (base_url, user, password) = _get_credentials()
+    source = current_app.config["AUTHENTICATION_SOURCE"]
+
+    r = requests.post(
+        "{}/users/registration".format(base_url),
+        json={"email": email, "source": source, "sourceId": email,},
+        auth=(user, password),
+    )
+
+    return r.json()
+
+
+def transfer_ownership(user_id, application_id):
+    (base_url, user, password) = _get_credentials()
+
+    r = requests.post(
+        "{}/applications/{}/members/transfer_ownership".format(
+            base_url, application_id
+        ),
+        json={"id": user_id, "role": "OWNER"},
+        auth=(user, password),
+    )
+
+
 def _get_credentials():
     return (
         current_app.config["GRAVITEE_URL"],

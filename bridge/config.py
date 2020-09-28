@@ -15,6 +15,7 @@ class Config(object):
     CNAF_PLAN_ID = os.environ.get("CNAF_PLAN_ID")
     INTROSPECT_API_ID = os.environ.get("INTROSPECT_API_ID")
     INTROSPECT_PLAN_ID = os.environ.get("INTROSPECT_PLAN_ID")
+    AUTHENTICATION_SOURCE = os.environ.get("AUTHENTICATION_SOURCE")
 
 
 class DevConfig(Config):
@@ -31,3 +32,4 @@ class TestingConfig(Config):
     GRAVITEE_URL = "https://portail.test"
     GRAVITEE_ADMIN = "admin"
     GRAVITEE_PASSWORD = "password"
+    AUTHENTICATION_SOURCE = "apigouvfr"
