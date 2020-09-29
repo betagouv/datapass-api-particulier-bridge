@@ -15,4 +15,4 @@ def on_user_registered(sender, **kwargs):
         data_pass_id=data_pass_id,
     )
 
-    send_mail(contact_email, "Bienvenue", html)
+    send_mail(contact_email, "Votre raccordement à API Particulier", html)
