@@ -22,7 +22,7 @@ def test_subscription(mocker, app):
     requests.post.assert_called_once()
     assert (
         requests.post.call_args[0][0]
-        == "https://portail.test/apis/api_id/subscriptions"
+        == "https://admin-api.portail.test/management/organizations/DEFAULT/environments/DEFAULT/apis/api_id/subscriptions"
     )
 
 
@@ -53,12 +53,12 @@ def test_dictionary_update(mocker, app):
 
     assert (
         requests.put.call_args[0][0]
-        == "https://portail.test/configuration/dictionaries/test_dictionary"
+        == "https://admin-api.portail.test/management/organizations/DEFAULT/environments/DEFAULT/configuration/dictionaries/test_dictionary"
     )
     assert requests.put.call_args[1]["json"]["properties"] == {"crou": "te", "yo": "lo"}
     assert (
         requests.post.call_args[0][0]
-        == "https://portail.test/configuration/dictionaries/test_dictionary/_deploy"
+        == "https://admin-api.portail.test/management/organizations/DEFAULT/environments/DEFAULT/configuration/dictionaries/test_dictionary/_deploy"
     )
 
 
