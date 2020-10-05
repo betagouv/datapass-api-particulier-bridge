@@ -102,7 +102,7 @@ def transfer_ownership(user_id, application_id):
 
 def _get_credentials():
     return (
-        current_app.config["GRAVITEE_URL"],
+        f"https://admin-api.{current_app.config['GRAVITEE_DOMAIN']}/management/organizations/DEFAULT/environments/DEFAULT",
         current_app.config["GRAVITEE_ADMIN"],
         current_app.config["GRAVITEE_PASSWORD"],
     )

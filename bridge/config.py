@@ -4,7 +4,7 @@ import os
 class Config(object):
     DEBUG = False
     TESTING = False
-    GRAVITEE_URL = os.environ.get("GRAVITEE_URL")
+    GRAVITEE_DOMAIN = os.environ.get("GRAVITEE_DOMAIN")
     GRAVITEE_ADMIN = os.environ.get("GRAVITEE_ADMIN")
     GRAVITEE_PASSWORD = os.environ.get("GRAVITEE_PASSWORD")
     DGFIP_API_ID = os.environ.get("DGFIP_API_ID")
@@ -32,7 +32,7 @@ class ProductionConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     DATA_PASS_API_KEY = "test_api_key"
-    GRAVITEE_URL = "https://portail.test"
+    GRAVITEE_DOMAIN = "portail.test"
     GRAVITEE_ADMIN = "admin"
     GRAVITEE_PASSWORD = "password"
     AUTHENTICATION_SOURCE = "apigouvfr"
