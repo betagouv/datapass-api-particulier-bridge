@@ -13,6 +13,7 @@ requests = "*"
 gunicorn = "*"
 blinker = "*"
 flask-mail = "*"
+sentry-sdk = {extras = ["flask"], version = "*"}
 
 [requires]
 python_version = "3.7"
