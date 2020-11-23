@@ -66,9 +66,10 @@ def create_application_metadata(application_id, name, value):
 def search_user_by_email(email):
     (base_url, user, password) = _get_credentials()
 
+    escaped_email = email.replace("@", " ")
     r = requests.get(
         "{}/users".format(base_url),
-        params={"q": email, "page": 1, "size": 1},
+        params={"q": escaped_email, "page": 1, "size": 1},
         auth=(user, password),
     )
 
