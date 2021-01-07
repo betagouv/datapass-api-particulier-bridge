@@ -42,7 +42,7 @@ def subscribe(application_name, contact_email, data_pass_id, scopes):
     # Register the technical contact to the API Manager if they don't have an account yet
     contact_user_id = None
     candidates = client.search_user_by_email(contact_email)
-    if len(candidates) > 0:
+    if len(candidates) > 0 and candidates[0]["email"] == contact_email:
         contact_user_id = candidates[0]["id"]
     else:
         contact_user = client.register_user(contact_email)
