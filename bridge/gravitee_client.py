@@ -85,11 +85,14 @@ def register_user(email):
     (base_url, user, password) = _get_credentials()
     source = current_app.config["AUTHENTICATION_SOURCE"]
 
-    requests.post(
+    r = requests.post(
         "{}/users/registration".format(base_url),
         json={"email": email, "source": source, "sourceId": email,},
         auth=(user, password),
-    ).raise_for_status()
+    )
+    r.raise_for_status()
+
+    return r.json()
 
 
 def transfer_ownership(user_id, application_id):
