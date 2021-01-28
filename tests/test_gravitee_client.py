@@ -88,7 +88,11 @@ def test_user_search(mocker, app):
 
     requests.get.assert_called_once()
 
-    assert requests.get.call_args[1]["params"] == {"q": escaped_email, "page": 1, "size": 1}
+    assert requests.get.call_args[1]["params"] == {
+        "q": escaped_email,
+        "page": 1,
+        "size": 1,
+    }
 
 
 def test_user_registration(mocker, app):
@@ -116,3 +120,15 @@ def test_transfer_ownership(mocker, app):
 
     requests.post.assert_called_once()
     assert requests.post.call_args[1]["json"] == {"id": user_id, "role": "OWNER"}
+
+
+def test_add_user_to_application(mocker, app):
+    mocker.patch("requests.post")
+
+    user_id = "georges_moustaki"
+    application_id = "application_id"
+
+    client.add_user_to_application(user_id, application_id)
+
+    requests.post.assert_called_once()
+    assert requests.post.call_args[1]["json"] == {"id": user_id, "role": "USER"}

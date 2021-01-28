@@ -100,6 +100,20 @@ def transfer_ownership(user_id, application_id):
         auth=(user, password),
     )
 
+    return r.json()
+
+
+def add_user_to_application(user_id, application_id):
+    (base_url, user, password) = _get_credentials()
+
+    r = requests.post(
+        "{}/applications/{}/members".format(base_url, application_id),
+        json={"id": user_id, "role": "USER"},
+        auth=(user, password),
+    )
+
+    return r.json()
+
 
 def _get_credentials():
     return (
