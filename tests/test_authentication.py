@@ -15,7 +15,9 @@ def test_valid_call(client, mocker):
         json={
             "name": "app_name",
             "scopes": ["scope1", "scope2"],
-            "email": "test@test.com",
+            "author_email": "test@test.com",
+            "technical_contact_email": "test@test.com",
+            "functional_contact_email": "test@test.com",
             "data_pass_id": "id123",
         },
     )
