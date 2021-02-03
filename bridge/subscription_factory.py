@@ -50,12 +50,12 @@ def subscribe(
     technical_contact_id = _find_or_register_user(technical_contact_email)
     functional_contact_id = _find_or_register_user(functional_contact_email)
 
-    # Give the application ownership to the technical user
-    client.transfer_ownership(technical_contact_id, application["id"])
-
     # Add other contacts as application users
     client.add_user_to_application(owner_id, application["id"])
     client.add_user_to_application(functional_contact_id, application["id"])
+
+    # Give the application ownership to the technical user
+    client.transfer_ownership(technical_contact_id, application["id"])
 
     # Notify listeners that a new registration have been made, send a mail
     user_registered.send(
